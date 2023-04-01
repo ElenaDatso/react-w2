@@ -17,12 +17,18 @@ function Header() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about" className={classes.link}>
+            <NavLink
+              to="/about"
+              className={({ isActive }) => (isActive ? classes.active : classes.link)}
+            >
               About
             </NavLink>
           </li>
           <li>
-            <NavLink to="/form" className={classes.link}>
+            <NavLink
+              to="/form"
+              className={({ isActive }) => (isActive ? classes.active : classes.link)}
+            >
               Form
             </NavLink>
           </li>

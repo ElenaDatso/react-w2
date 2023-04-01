@@ -1,25 +1,20 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-
-interface BookFormData {
-  title: string;
-  author: string;
-  dateArrived: Date;
-  type: string[];
-  isUsed: boolean;
-  reading: string;
-  cover: FileList;
-}
+import { useContext } from 'react';
+import cardsContext from '../../context/cardsContext';
+import BookFormData from '../../interfaces/BookFormData';
 
 type Props = {
   onNewData: (data: BookFormData) => void;
 };
 
 const BookForm = (props: Props) => {
+  const cardCont = useContext(cardsContext);
   const { register, handleSubmit, control } = useForm<BookFormData>();
 
   const onSubmit = (data: BookFormData) => {
-    console.log(data);
+    cardCont.push(data);
+    console.log(typeof data.dateArrived);
     props.onNewData(data);
   };
 

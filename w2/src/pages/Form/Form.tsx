@@ -1,32 +1,34 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import BookForm from '../../layouts/Form/FormL';
 import BookCard from '../../layouts/Card/Card';
 import BookFormData from '../../interfaces/BookFormData';
+import cardsContext from '../../context/cardsContext';
 
 function Form() {
-  const [cards, setCards] = useState<BookFormData[]>([]);
+  const cardsCont = useContext(cardsContext);
+  const [cards, setCards] = useState<BookFormData[]>(cardsCont);
   function newDataHandler(data: BookFormData) {
     setCards((array) => [...array, data]);
   }
   useEffect(() => {
-    console.log(cards);
-  }, [cards]);
+    console.log(cardsCont);
+  }, [cardsCont]);
 
   return (
     <>
       <BookForm onNewData={newDataHandler} />
       <div>
-        {cards.map((card: BookFormData) => (
+        {cardsCont.map((card: BookFormData) => (
           <BookCard
             key={Math.random()}
-            cover={''}
-            name={card.title}
+            cover={card.cover}
+            title={card.title}
             author={card.author}
-            type={card.type.toString()}
-            // dateArrived={card.dateArrived.toDateString()}
+            type={card.type}
+            dateArrived={card.dateArrived}
             isUsed={card.isUsed}
-            readingNow={card.reading}
+            reading={card.reading}
           />
         ))}
       </div>
