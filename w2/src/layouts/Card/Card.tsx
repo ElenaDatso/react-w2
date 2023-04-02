@@ -18,12 +18,15 @@ const BookCard: React.FC<BookFormData> = ({
         alt={title}
         className={classes.cover}
       />
-      <h2>{title}</h2>
-      <p>{author}</p>
-      <p>{type.join(', ')}</p>
-      <p>{dateArrived}</p>
-      <p>{isUsed === 'true' ? 'Used' : 'New'}</p>
-      <p>{reading}</p>
+      <h2 className={classes.h2}>{title}</h2>
+      <p className={`${classes.p} ${classes.author}`}>by {author}</p>
+      <p className={`${classes.p} ${classes.type}`}>{type.join(', ')}</p>
+      <h6>Additional info</h6>
+      <p className={`${classes.p} ${classes.date}`}>Arrived: {dateArrived}</p>
+      <p className={`${classes.p} ${classes.condition}`}>
+        Condition: {isUsed === 'true' ? 'Used' : 'New'}
+      </p>
+      <p className={`${classes.p} ${classes.reader}`}>Now reading: {reading}</p>
     </div>
   );
 };
