@@ -4,6 +4,7 @@ import BookForm from '../../layouts/Form/FormL';
 import BookCard from '../../layouts/Card/Card';
 import BookFormData from '../../interfaces/BookFormData';
 import cardsContext from '../../context/cardsContext';
+import classes from './Form.module.scss';
 
 function Form() {
   const cardsCont = useContext(cardsContext);
@@ -16,9 +17,9 @@ function Form() {
   }, [cardsCont]);
 
   return (
-    <>
+    <div className={classes.wrap}>
       <BookForm onNewData={newDataHandler} />
-      <div>
+      <div className={classes.cardsWrap}>
         {cardsCont.map((card: BookFormData) => (
           <BookCard
             key={Math.random()}
@@ -32,7 +33,7 @@ function Form() {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -3,11 +3,11 @@ import React from 'react';
 interface BookFormData {
   title: string;
   author: string;
-  dateArrived: Date;
+  dateArrived: string;
   type: string[];
-  isUsed: boolean;
+  isUsed: string;
   reading: string;
-  cover: FileList;
+  cover: File;
 }
 
 export default BookFormData;

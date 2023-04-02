@@ -1,33 +1,29 @@
 import React from 'react';
+import BookFormData from '../../interfaces/BookFormData';
+import classes from './Card.module.scss';
 
-interface BookCardProps {
-  cover: string;
-  name: string;
-  author: string;
-  type: string;
-  dateArrived?: string;
-  isUsed: boolean;
-  readingNow: string;
-}
-
-const BookCard: React.FC<BookCardProps> = ({
+const BookCard: React.FC<BookFormData> = ({
   cover,
-  name,
+  title,
   author,
   type,
   dateArrived,
   isUsed,
-  readingNow,
+  reading,
 }) => {
   return (
-    <div className="book-card">
-      <img src={cover} alt={name} />
-      <h2>{name}</h2>
+    <div className={classes.cardStyle}>
+      <img
+        src={'https://edit.org/images/cat/book-covers-big-2019101610.jpg'}
+        alt={title}
+        className={classes.cover}
+      />
+      <h2>{title}</h2>
       <p>{author}</p>
-      <p>{type}</p>
+      <p>{type.join(', ')}</p>
       <p>{dateArrived}</p>
-      <p>{isUsed ? 'Used' : 'New'}</p>
-      <p>{readingNow ? 'Currently reading' : 'Not currently reading'}</p>
+      <p>{isUsed === 'true' ? 'Used' : 'New'}</p>
+      <p>{reading}</p>
     </div>
   );
 };

@@ -32,6 +32,7 @@ function Main() {
               dateArrived={card.dateArrived}
             />
           ))}
+        <div className={classes.cardsWrap}>{cards.length === 0 && <p>The List Is Empty</p>}</div>
       </div>
     </div>
   );
