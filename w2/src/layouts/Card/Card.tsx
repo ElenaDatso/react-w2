@@ -13,11 +13,7 @@ const BookCard: React.FC<BookFormData> = ({
 }) => {
   return (
     <div className={classes.cardStyle}>
-      <img
-        src={'https://edit.org/images/cat/book-covers-big-2019101610.jpg'}
-        alt={title}
-        className={classes.cover}
-      />
+      <img src={cover} alt={title} className={classes.cover} />
       <h2 className={classes.h2}>{title}</h2>
       <p className={`${classes.p} ${classes.author}`}>by {author}</p>
       <p className={`${classes.p} ${classes.type}`}>{type.join(', ')}</p>

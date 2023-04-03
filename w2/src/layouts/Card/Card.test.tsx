@@ -4,7 +4,8 @@ import BookCard from './Card';
 
 describe('BookCard component', () => {
   const mockData = {
-    cover: new File([], 'test.png', { type: 'image/png' }),
+    // cover: new File([], 'test.png', { type: 'image/png' }),
+    cover: '',
     title: 'Test title',
     author: 'Test author',
     type: ['Fiction'],

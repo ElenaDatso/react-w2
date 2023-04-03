@@ -8,9 +8,7 @@ import BookCard from '../../layouts/Card/Card';
 function Main() {
   const cardsCont = useContext(cardsContext);
   const [cards, setCards] = useState(cardsCont);
-  useEffect(() => {
-    console.log(cardsCont);
-  }, [cardsCont]);
+
   return (
     <div>
       <SearchBar

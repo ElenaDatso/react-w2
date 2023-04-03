@@ -19,23 +19,36 @@ const BookForm = (props: Props) => {
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<BookFormData>();
+  const [coverUrl, setCoverUrl] = useState('');
 
   const onSubmit = (data: BookFormData) => {
+    data.cover = coverUrl;
+    setCoverUrl('');
     cardCont.push(data);
-    console.log(data);
     props.onNewData(data);
     reset();
   };
 
   const [showConfirm, setShowControl] = useState(false);
 
+  const handleCoverUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      // const reader = new FileReader();
+      // reader.readAsDataURL(file);
+      // reader.onloadend = () => {
+      //   setCoverUrl(reader.result as string); // set coverUrl to the result of FileReader
+      // };
+      setCoverUrl(url);
+    }
+  };
+
   useEffect(() => {
-    console.log(isSubmitSuccessful);
     if (isSubmitSuccessful) {
       setShowControl(true);
       setTimeout(() => {
         setShowControl(false);
-        console.log(showConfirm);
       }, 1300);
     }
   }, [isSubmitSuccessful]);
@@ -161,7 +174,12 @@ const BookForm = (props: Props) => {
               <input
                 type="file"
                 id="cover"
-                {...register('cover', { required: 'Please upload the cover-image' })}
+                {...register('cover', {
+                  required: 'Please upload the cover-image',
+                  onChange: (e) => {
+                    handleCoverUpload(e);
+                  },
+                })}
               />
               <p className={classes.fieldError}>{errors.cover?.message}</p>
             </div>

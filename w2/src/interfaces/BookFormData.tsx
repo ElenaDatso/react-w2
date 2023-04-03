@@ -7,7 +7,7 @@ interface BookFormData {
   type: string[];
   isUsed: string;
   reading: string;
-  cover: File;
+  cover: string;
 }
 
 export default BookFormData;
