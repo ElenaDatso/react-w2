@@ -13,7 +13,6 @@ async function Flickr(props: string) {
   const response = await axios.get<{ photos: { photo: SearchResult[] } }>(
     `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${API_KEY}&text=${props}&format=json&nojsoncallback=1`
   );
-  console.log(response.data.photos.photo);
   return response.data.photos.photo;
 }
 

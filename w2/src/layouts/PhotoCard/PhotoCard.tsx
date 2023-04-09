@@ -1,11 +1,12 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import classes from './PhotoCard.module.scss';
 import PhotoData from '../../interfaces/PhotoData';
 import CardModal from '../CardModal/CardModal';
 import FullPhotoCard from '../FullPhotoCard/FullPhotoCard';
-import axios from 'axios';
 import Loader from '../../assets/loader.svg';
+import getApi from '../../api/flickr';
+import PhotoInfo from '../../interfaces/PhotoInfo';
 
 const PhotoCard: React.FC<PhotoData> = ({
   farm,
@@ -20,15 +21,16 @@ const PhotoCard: React.FC<PhotoData> = ({
 }) => {
   const [ifShowCard, setIfShowCard] = useState(false);
   const [isLaoding, setIsLoading] = useState(false);
+  const [photoInfo, setPhotoInfo] = useState<PhotoInfo | null>(null);
 
   async function cardOpenHandler() {
     setIfShowCard(true);
     setIsLoading(true);
-    const API_KEY = 'ad3ad555dd3292925321ec36efca1184';
-    const response = await axios.get<{ person: { username: { _content: string } } }>(
-      `https://api.flickr.com/services/rest/?method=flickr.people.getInfo&api_key=${API_KEY}&user_id=${owner}&format=json&nojsoncallback=1`
-    );
-    console.log(response.data.person.username._content);
+    const photoInfo = (await getApi().getPhotoInfo(id)).data.photo as unknown as PhotoInfo;
+    if (photoInfo) setPhotoInfo(photoInfo);
+    // console.log((await getApi().getOwnerData(owner)).data.person.username);
+    // console.log((await getApi().getTags(id)).data.photo.tags);
+    // console.log((await getApi().getStats(id)).data);
     setIsLoading(false);
   }
 
@@ -41,7 +43,7 @@ const PhotoCard: React.FC<PhotoData> = ({
       {ifShowCard && (
         <CardModal onClose={onCloseHandler}>
           {isLaoding && <img src={Loader} />}
-          {!isLaoding && (
+          {!isLaoding && photoInfo && (
             <FullPhotoCard
               farm={farm}
               id={id}
@@ -52,6 +54,7 @@ const PhotoCard: React.FC<PhotoData> = ({
               secret={secret}
               server={server}
               title={title}
+              info={photoInfo}
             ></FullPhotoCard>
           )}
         </CardModal>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PhotoInfo from './PhotoInfo';
 
 interface PhotoData {
   farm: number;
@@ -10,6 +11,7 @@ interface PhotoData {
   secret: string;
   server: string;
   title: string;
+  info?: PhotoInfo;
 }
 
 export default PhotoData;

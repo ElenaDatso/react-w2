@@ -1,7 +1,6 @@
 import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import { useContext, useEffect, useState } from 'react';
-import cardsContext from '../../context/cardsContext';
+import { useEffect, useState } from 'react';
 import BookFormData from '../../interfaces/BookFormData';
 import classes from './Form.module.scss';
 import Modal from '../Modal/Modal';
@@ -11,7 +10,6 @@ type Props = {
 };
 
 const BookForm = (props: Props) => {
-  const cardCont = useContext(cardsContext);
   const {
     register,
     handleSubmit,
@@ -24,7 +22,6 @@ const BookForm = (props: Props) => {
   const onSubmit = (data: BookFormData) => {
     data.cover = coverUrl;
     setCoverUrl('');
-    cardCont.push(data);
     props.onNewData(data);
     reset();
   };
@@ -35,11 +32,6 @@ const BookForm = (props: Props) => {
     const file = event.target.files?.[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      // const reader = new FileReader();
-      // reader.readAsDataURL(file);
-      // reader.onloadend = () => {
-      //   setCoverUrl(reader.result as string); // set coverUrl to the result of FileReader
-      // };
       setCoverUrl(url);
     }
   };

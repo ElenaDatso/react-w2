@@ -6,6 +6,7 @@ import Flickr from '../Flickr/Flickr';
 import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
 import { BsFillInboxFill } from 'react-icons/bs';
+import getApi from '../../api/flickr';
 
 type PropsData = {
   onSearch: ([]: PhotoData[]) => void;
@@ -37,7 +38,7 @@ const SearchBar = (props: PropsData) => {
     props.onSearch([]);
     setIsEmptyArray(false);
     setIsLoading(true);
-    const data: PhotoData[] = (await Flickr(searchTerm)) as unknown as PhotoData[];
+    const data: PhotoData[] = (await getApi().getPhotoData(searchTerm)).data.photos.photo;
     props.onSearch(data);
     setIsLoading(false);
     setIsEmptyArray(data.length === 0);
