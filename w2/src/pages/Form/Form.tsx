@@ -7,14 +7,10 @@ import cardsContext from '../../context/cardsContext';
 import classes from './Form.module.scss';
 
 function Form() {
-  const cardsCont = useContext(cardsContext);
   const [cards, setCards] = useState<BookFormData[]>([]);
   function newDataHandler(data: BookFormData) {
     setCards((array) => [...array, data]);
   }
-  useEffect(() => {
-    console.log(cardsCont);
-  }, [cardsCont]);
 
   return (
     <div className={classes.wrap}>

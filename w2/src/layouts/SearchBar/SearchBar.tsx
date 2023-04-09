@@ -5,6 +5,7 @@ import classes from './SearchBar.module.scss';
 import Flickr from '../Flickr/Flickr';
 import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
+import { BsFillInboxFill } from 'react-icons/bs';
 
 type PropsData = {
   onSearch: ([]: PhotoData[]) => void;
@@ -13,6 +14,7 @@ type PropsData = {
 const SearchBar = (props: PropsData) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isEmptyArray, setIsEmptyArray] = useState(true);
 
   useEffect(() => {
     const savedSearchTerm = localStorage.getItem('searchTerm');
@@ -33,10 +35,12 @@ const SearchBar = (props: PropsData) => {
     event.preventDefault();
     if (!searchTerm) return;
     props.onSearch([]);
+    setIsEmptyArray(false);
     setIsLoading(true);
     const data: PhotoData[] = (await Flickr(searchTerm)) as unknown as PhotoData[];
     props.onSearch(data);
     setIsLoading(false);
+    setIsEmptyArray(data.length === 0);
   };
 
   const handleReset = () => {
@@ -67,6 +71,12 @@ const SearchBar = (props: PropsData) => {
       </form>
       {isLoading && <img className={classes.loader} src={Loader} />}
       {isLoading && <p className={classes.loading}>Loading</p>}
+      {isEmptyArray && (
+        <>
+          <BsFillInboxFill className={classes.emptyIcon} />
+          <p className={classes.emptyText}>List is empty</p>
+        </>
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import SearchBar from '../../layouts/SearchBar/SearchBar';
 import classes from './Main.module.scss';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ function Main() {
 
   return (
     <div>
-      <SearchBar onSearch={searchHandler}></SearchBar>{' '}
+      <SearchBar onSearch={searchHandler}></SearchBar>
       <div className={classes.cardsWrap}>
         {cards.length > 0 &&
           cards.map((card) => (
