@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { TbSearch } from 'react-icons/tb';
+import classes from './SearchBar.module.scss';
+import Flickr from '../Flickr/Flickr';
+import PhotoData from '../../interfaces/PhotoData';
+import Loader from '../../assets/loader.svg';
 
-interface SearchBarProps {
-  onSearch: (searchTerm: string) => void;
-}
+type PropsData = {
+  onSearch: ([]: PhotoData[]) => void;
+};
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
+const SearchBar = (props: PropsData) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const savedSearchTerm = localStorage.getItem('searchTerm');
@@ -21,71 +26,48 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   }, [searchTerm]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
+    setSearchTerm(event.target.value.trim());
   };
 
-  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(searchTerm);
+    if (!searchTerm) return;
+    props.onSearch([]);
+    setIsLoading(true);
+    const data: PhotoData[] = (await Flickr(searchTerm)) as unknown as PhotoData[];
+    props.onSearch(data);
+    setIsLoading(false);
   };
 
   const handleReset = () => {
     setSearchTerm('');
-    onSearch('');
+    Flickr('');
   };
 
   return (
-    <form onSubmit={handleSearch}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          backgroundColor: 'white',
-          color: 'black',
-          borderRadius: '5px',
-          padding: '10px',
-          border: 'none',
-          boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        }}
-      >
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleInputChange}
-          placeholder="Search"
-          style={{
-            flex: 1,
-            border: 'none',
-            outline: 'none',
-            fontSize: '16px',
-          }}
-        />
-        <button
-          type="submit"
-          style={{
-            border: 'none',
-            backgroundColor: 'transparent',
-            cursor: 'pointer',
-            marginRight: '10px',
-          }}
-        >
-          <TbSearch></TbSearch>
-        </button>
-        {searchTerm.length > 0 && (
-          <button
-            type="button"
-            onClick={handleReset}
-            style={{
-              border: 'none',
-              backgroundColor: 'transparent',
-              cursor: 'pointer',
-            }}
-          >
-            <RxCross2 />
+    <>
+      <form onSubmit={handleSearch}>
+        <div className={classes.wrap}>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={handleInputChange}
+            placeholder="Search"
+            className={classes.input}
+          />
+          <button type="submit" className={classes.submit}>
+            <TbSearch></TbSearch>
           </button>
-        )}
-      </div>
-    </form>
+          {searchTerm.length > 0 && (
+            <button type="button" onClick={handleReset} className={classes.cross}>
+              <RxCross2 />
+            </button>
+          )}
+        </div>
+      </form>
+      {isLoading && <img className={classes.loader} src={Loader} />}
+      {isLoading && <p className={classes.loading}>Loading</p>}
+    </>
   );
 };
 

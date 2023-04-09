@@ -1,36 +1,36 @@
 import React, { useEffect } from 'react';
 import SearchBar from '../../layouts/SearchBar/SearchBar';
 import classes from './Main.module.scss';
-import { useState, useContext } from 'react';
-import cardsContext from '../../context/cardsContext';
-import BookCard from '../../layouts/Card/Card';
+import { useState } from 'react';
+import PhotoCard from '../../layouts/PhotoCard/PhotoCard';
+import PhotoData from '../../interfaces/PhotoData';
 
 function Main() {
-  const cardsCont = useContext(cardsContext);
-  const [cards, setCards] = useState(cardsCont);
+  const [cards, setCards] = useState<PhotoData[]>([]);
+
+  function searchHandler(array: PhotoData[]) {
+    setCards(array);
+  }
 
   return (
     <div>
-      <SearchBar
-        onSearch={function (searchTerm: string): void {
-          throw new Error('Function not implemented.');
-        }}
-      ></SearchBar>{' '}
+      <SearchBar onSearch={searchHandler}></SearchBar>{' '}
       <div className={classes.cardsWrap}>
         {cards.length > 0 &&
           cards.map((card) => (
-            <BookCard
-              key={Math.random()}
-              cover={card.cover}
+            <PhotoCard
+              key={card.id}
               title={card.title}
-              author={card.author}
-              type={card.type}
-              isUsed={card.isUsed}
-              reading={card.reading}
-              dateArrived={card.dateArrived}
+              farm={card.farm}
+              id={card.id}
+              isfamily={card.isfamily}
+              isfriend={card.isfriend}
+              ispublic={card.ispublic}
+              owner={card.owner}
+              secret={card.secret}
+              server={card.server}
             />
           ))}
-        <div className={classes.cardsWrap}>{cards.length === 0 && <p>The List Is Empty</p>}</div>
       </div>
     </div>
   );

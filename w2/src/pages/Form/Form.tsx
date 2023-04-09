@@ -8,7 +8,7 @@ import classes from './Form.module.scss';
 
 function Form() {
   const cardsCont = useContext(cardsContext);
-  const [cards, setCards] = useState<BookFormData[]>(cardsCont);
+  const [cards, setCards] = useState<BookFormData[]>([]);
   function newDataHandler(data: BookFormData) {
     setCards((array) => [...array, data]);
   }
@@ -20,7 +20,7 @@ function Form() {
     <div className={classes.wrap}>
       <BookForm onNewData={newDataHandler} />
       <div className={classes.cardsWrap}>
-        {cardsCont.map((card: BookFormData) => (
+        {cards.map((card: BookFormData) => (
           <BookCard
             key={Math.random()}
             cover={card.cover}

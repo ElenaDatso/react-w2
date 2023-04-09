@@ -189,7 +189,7 @@ const BookForm = (props: Props) => {
         <button type="submit" className={classes.formSubmit}>
           Submit
         </button>
-        <div>{showConfirm && <Modal></Modal>}</div>
+        <div>{showConfirm && <Modal>Success!</Modal>}</div>
       </form>
     </div>
   );

@@ -1,0 +1,36 @@
+.wrap{
+  display: flex;
+  align-items: center;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.input{
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.submit {
+  border: 'none';
+  background-color: 'transparent';
+  cursor: 'pointer';
+  margin-right: '10px';
+}
+
+.cross{
+  border: 'none';
+  background-color: 'transparent';
+  cursor: 'pointer';
+}
+
+.loading {
+  color: #d4d4b9;
+}
+
+.loader {
+  margin-top: 40px;
+}
