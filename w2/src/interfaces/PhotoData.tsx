@@ -1,4 +1,3 @@
-import React from 'react';
 import PhotoInfo from './PhotoInfo';
 
 interface PhotoData {

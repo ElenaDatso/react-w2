@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import SearchBar from '../../layouts/SearchBar/SearchBar';
 import classes from './Main.module.scss';
 import { useState } from 'react';

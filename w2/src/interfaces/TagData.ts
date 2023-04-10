@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface TagData {
   author: string;
   authorname: string;

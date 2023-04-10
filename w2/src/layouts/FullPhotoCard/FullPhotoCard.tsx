@@ -4,18 +4,7 @@ import PhotoData from '../../interfaces/PhotoData';
 import Tag from '../Tag/Tag';
 import { MdPerson2 } from 'react-icons/md';
 
-const FullPhotoCard: React.FC<PhotoData> = ({
-  farm,
-  title,
-  id,
-  isfamily,
-  isfriend,
-  ispublic,
-  owner,
-  secret,
-  server,
-  info,
-}) => {
+const FullPhotoCard: React.FC<PhotoData> = ({ title, id, secret, server, info }) => {
   const dateCreated = info ? new Date(+info.dates.posted * 1000).toLocaleString() : 'unknown';
   const dateUpdated = info ? new Date(+info.dates.lastupdate * 1000).toLocaleString() : 'unknown';
   console.log(info);
