@@ -7,6 +7,7 @@ import FullPhotoCard from '../FullPhotoCard/FullPhotoCard';
 import Loader from '../../assets/loader.svg';
 import getApi from '../../api/flickr';
 import PhotoInfo from '../../interfaces/PhotoInfo';
+import Lost from '../../assets/lost.jpg';
 
 const PhotoCard: React.FC<PhotoData> = ({
   farm,
@@ -22,11 +23,13 @@ const PhotoCard: React.FC<PhotoData> = ({
   const [ifShowCard, setIfShowCard] = useState(false);
   const [isLaoding, setIsLoading] = useState(false);
   const [photoInfo, setPhotoInfo] = useState<PhotoInfo | null>(null);
+  const [isLost, setIsLost] = useState(false);
 
   async function cardOpenHandler() {
     setIfShowCard(true);
     setIsLoading(true);
-    const photoInfo = (await getApi().getPhotoInfo(id)).data.photo as PhotoInfo;
+    const response = await getApi().getPhotoInfo(id);
+    const photoInfo = response.data.photo as PhotoInfo;
     if (photoInfo) setPhotoInfo(photoInfo);
     setIsLoading(false);
   }
@@ -34,6 +37,12 @@ const PhotoCard: React.FC<PhotoData> = ({
   function onCloseHandler() {
     setIfShowCard(false);
   }
+
+  fetch(`https://live.staticflickr.com/${server}/${id}_${secret}.jpg`)
+    .then((data) => (data.status === 500 ? setIsLost(true) : setIsLost(false)))
+    .catch(() => {
+      throw Error;
+    });
 
   return (
     <>
@@ -58,7 +67,7 @@ const PhotoCard: React.FC<PhotoData> = ({
       )}
       <div className={classes.cardStyle} onClick={cardOpenHandler}>
         <img
-          src={`https://live.staticflickr.com/${server}/${id}_${secret}.jpg`}
+          src={isLost ? Lost : `https://live.staticflickr.com/${server}/${id}_${secret}.jpg`}
           alt={title}
           className={classes.cover}
         />

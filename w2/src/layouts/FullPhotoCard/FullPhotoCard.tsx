@@ -1,16 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './FullPhotoCard.module.scss';
 import PhotoData from '../../interfaces/PhotoData';
 import Tag from '../Tag/Tag';
 import { MdPerson2 } from 'react-icons/md';
+import Lost from '../../assets/lost.jpg';
 
 const FullPhotoCard: React.FC<PhotoData> = ({ title, id, secret, server, info }) => {
   const dateCreated = info ? new Date(+info.dates.posted * 1000).toLocaleString() : 'unknown';
   const dateUpdated = info ? new Date(+info.dates.lastupdate * 1000).toLocaleString() : 'unknown';
+  const [isLost, setIsLost] = useState(false);
+  fetch(`https://live.staticflickr.com/${server}/${id}_${secret}.jpg`)
+    .then((data) => {
+      if (data.status === 500) {
+        setIsLost(true);
+        throw Error;
+      }
+    })
+    .catch((e) => Error);
   return (
     <div className={classes.cardStyle}>
       <img
-        src={`https://live.staticflickr.com/${server}/${id}_${secret}.jpg`}
+        src={isLost ? Lost : `https://live.staticflickr.com/${server}/${id}_${secret}.jpg`}
         alt={title}
         className={classes.cover}
       />
