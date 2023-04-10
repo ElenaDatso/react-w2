@@ -4,7 +4,6 @@ import PhotoInfo from '../interfaces/PhotoInfo';
 
 export default function () {
   const API_KEY = 'ad3ad555dd3292925321ec36efca1184';
-  const SECRET = '4813e86cfae41ccd';
   const BASE_URL = 'https://api.flickr.com/services/rest/';
   return {
     getPhotoData(searchValue: string) {

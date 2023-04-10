@@ -1,4 +1,3 @@
-import axios from 'axios';
 import PhotoData from '../interfaces/PhotoData';
 import getApi from './flickr';
 
