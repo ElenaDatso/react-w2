@@ -9,8 +9,7 @@ describe('BookFormData', () => {
       type: ['Fiction'],
       isUsed: 'false',
       reading: 'true',
-      // cover: new File([], 'test.jpg'),
-      cover: '',
+      cover: 'https://some.adress',
     };
 
     expect(formData.title).toEqual(expect.any(String));
@@ -19,7 +18,6 @@ describe('BookFormData', () => {
     expect(formData.type).toEqual(expect.any(Array));
     expect(formData.isUsed).toEqual(expect.any(String));
     expect(formData.reading).toEqual(expect.any(String));
-    // expect(formData.cover).toBeInstanceOf(File);
-    expect(formData.cover).toBeInstanceOf(expect.any(String));
+    expect(formData.cover).toEqual(expect.any(String));
   });
 });

@@ -18,6 +18,7 @@ const FullPhotoCard: React.FC<PhotoData> = ({
 }) => {
   const dateCreated = info ? new Date(+info.dates.posted * 1000).toLocaleString() : 'unknown';
   const dateUpdated = info ? new Date(+info.dates.lastupdate * 1000).toLocaleString() : 'unknown';
+  console.log(info);
   return (
     <div className={classes.cardStyle}>
       <img
@@ -50,7 +51,6 @@ const FullPhotoCard: React.FC<PhotoData> = ({
           <div className={classes.tagsWrap}>
             {info.tags.tag.length > 0 &&
               info.tags.tag.map((tag) => {
-                console.log(tag);
                 return Tag(tag.raw);
               })}
             {info.tags.tag.length === 0 && <span>No tags</span>}

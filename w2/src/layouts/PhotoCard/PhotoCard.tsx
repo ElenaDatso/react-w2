@@ -26,11 +26,8 @@ const PhotoCard: React.FC<PhotoData> = ({
   async function cardOpenHandler() {
     setIfShowCard(true);
     setIsLoading(true);
-    const photoInfo = (await getApi().getPhotoInfo(id)).data.photo as unknown as PhotoInfo;
+    const photoInfo = (await getApi().getPhotoInfo(id)).data.photo as PhotoInfo;
     if (photoInfo) setPhotoInfo(photoInfo);
-    // console.log((await getApi().getOwnerData(owner)).data.person.username);
-    // console.log((await getApi().getTags(id)).data.photo.tags);
-    // console.log((await getApi().getStats(id)).data);
     setIsLoading(false);
   }
 

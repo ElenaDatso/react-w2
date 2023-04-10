@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Main from './Main';
+import App from '../../App';
 
 describe('Main', () => {
-  it('should render a message when there are no cards', () => {
-    const { getByText } = render(<Main />);
-    expect(getByText('The List Is Empty')).toBeInTheDocument();
+  it('should render a message when search value is empty', () => {
+    const { getByText } = render(<App />);
+    expect(getByText('List is empty')).toBeInTheDocument();
   });
 });

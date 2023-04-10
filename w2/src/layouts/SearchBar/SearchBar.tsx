@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { RxCross2 } from 'react-icons/rx';
 import { TbSearch } from 'react-icons/tb';
 import classes from './SearchBar.module.scss';
-import Flickr from '../Flickr/Flickr';
 import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
 import { BsFillInboxFill } from 'react-icons/bs';
@@ -46,7 +45,6 @@ const SearchBar = (props: PropsData) => {
 
   const handleReset = () => {
     setSearchTerm('');
-    Flickr('');
   };
 
   return (
