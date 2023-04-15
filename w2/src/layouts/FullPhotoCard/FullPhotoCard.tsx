@@ -16,7 +16,7 @@ const FullPhotoCard: React.FC<PhotoData> = ({ title, id, secret, server, info })
         throw Error;
       }
     })
-    .catch((e) => Error);
+    .catch(() => Error);
   return (
     <div className={classes.cardStyle}>
       <img
