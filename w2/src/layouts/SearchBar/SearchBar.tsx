@@ -34,10 +34,11 @@ const SearchBar = (props: PropsData) => {
   };
 
   useEffect(() => {
+    if (!searchSubmiter) return;
     if (searchSubmiter) {
-      setIsLoading(true);
       const confirm = async () => {
-        const data: PhotoData[] = (await getApi().getPhotoData(searchInput)).data.photos.photo;
+        setIsLoading(true);
+        const data: PhotoData[] = (await getApi().getPhotoData(searchSubmiter)).data.photos.photo;
         props.onSearch(data);
         setIsEmptyArray(data.length === 0);
         setIsLoading(false);
