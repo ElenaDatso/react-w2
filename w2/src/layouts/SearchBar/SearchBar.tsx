@@ -29,7 +29,6 @@ const SearchBar = (props: PropsData) => {
     event.preventDefault();
     if (!searchInput) return;
     props.onSearch([]);
-    setIsEmptyArray(false);
     dispatch(setSubmited(searchInput));
   };
 
@@ -38,6 +37,7 @@ const SearchBar = (props: PropsData) => {
     if (searchSubmiter) {
       const confirm = async () => {
         setIsLoading(true);
+        setIsEmptyArray(false);
         const data: PhotoData[] = (await getApi().getPhotoData(searchSubmiter)).data.photos.photo;
         props.onSearch(data);
         setIsEmptyArray(data.length === 0);
