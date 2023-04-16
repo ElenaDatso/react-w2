@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RxCross2 } from 'react-icons/rx';
 import { TbSearch } from 'react-icons/tb';
 import classes from './SearchBar.module.scss';
@@ -6,45 +7,48 @@ import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
 import { BsFillInboxFill } from 'react-icons/bs';
 import getApi from '../../api/flickr';
+import { save } from './searchInputReducer';
+import { setSubmited } from './searchSubmitReducer';
 
 type PropsData = {
   onSearch: ([]: PhotoData[]) => void;
 };
 
 const SearchBar = (props: PropsData) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const [isLoading, setIsLoading] = useState(false);
   const [isEmptyArray, setIsEmptyArray] = useState(true);
-
-  useEffect(() => {
-    const savedSearchTerm = localStorage.getItem('searchTerm');
-    if (savedSearchTerm) {
-      setSearchTerm(savedSearchTerm);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('searchTerm', searchTerm);
-  }, [searchTerm]);
+  const dispatch = useDispatch();
+  const searchInput = useSelector((state: { searchInput: string }) => state.searchInput);
+  const searchSubmiter = useSelector((state: { searchSubmit: string }) => state.searchSubmit);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value.trim());
+    dispatch(save(event.target.value.trim()));
   };
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!searchTerm) return;
+    if (!searchInput) return;
     props.onSearch([]);
     setIsEmptyArray(false);
-    setIsLoading(true);
-    const data: PhotoData[] = (await getApi().getPhotoData(searchTerm)).data.photos.photo;
-    props.onSearch(data);
-    setIsLoading(false);
-    setIsEmptyArray(data.length === 0);
+    dispatch(setSubmited(searchInput));
   };
 
+  useEffect(() => {
+    if (searchSubmiter) {
+      setIsLoading(true);
+      const confirm = async () => {
+        const data: PhotoData[] = (await getApi().getPhotoData(searchInput)).data.photos.photo;
+        props.onSearch(data);
+        setIsEmptyArray(data.length === 0);
+        setIsLoading(false);
+      };
+      confirm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchSubmiter]);
+
   const handleReset = () => {
-    setSearchTerm('');
+    dispatch(save(''));
   };
 
   return (
@@ -53,7 +57,7 @@ const SearchBar = (props: PropsData) => {
         <div className={classes.wrap}>
           <input
             type="text"
-            value={searchTerm}
+            value={searchInput}
             onChange={handleInputChange}
             placeholder="Search"
             className={classes.input}
@@ -61,7 +65,7 @@ const SearchBar = (props: PropsData) => {
           <button type="submit" className={classes.submit}>
             <TbSearch></TbSearch>
           </button>
-          {searchTerm.length > 0 && (
+          {searchInput.length > 0 && (
             <button type="button" onClick={handleReset} className={classes.cross}>
               <RxCross2 />
             </button>
