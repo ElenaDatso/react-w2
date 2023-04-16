@@ -6,7 +6,7 @@ import classes from './SearchBar.module.scss';
 import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
 import { BsFillInboxFill } from 'react-icons/bs';
-import { useGetPhotoDataQuery } from '../../api/flickr';
+import getApi from '../../api/flickr';
 import { save } from './searchInputReducer';
 import { setSubmited } from './searchSubmitReducer';
 
@@ -15,17 +15,11 @@ type PropsData = {
 };
 
 const SearchBar = (props: PropsData) => {
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isEmptyArray, setIsEmptyArray] = useState(true);
   const dispatch = useDispatch();
   const searchInput = useSelector((state: { searchInput: string }) => state.searchInput);
   const searchSubmiter = useSelector((state: { searchSubmit: string }) => state.searchSubmit);
-  const {
-    data: photoData,
-    isLoading,
-    error,
-    refetch,
-  } = useGetPhotoDataQuery(searchSubmiter || 'cat');
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(save(event.target.value.trim()));
@@ -42,13 +36,12 @@ const SearchBar = (props: PropsData) => {
     if (!searchSubmiter) return;
     if (searchSubmiter) {
       const confirm = async () => {
+        setIsLoading(true);
         setIsEmptyArray(false);
-        refetch();
-        // const data: PhotoData[] = (await getApi().getPhotoData(searchSubmiter)).data.photos.photo;
-        if (photoData) {
-          props.onSearch(photoData);
-          setIsEmptyArray(photoData.length === 0);
-        }
+        const data: PhotoData[] = (await getApi().getPhotoData(searchSubmiter)).data.photos.photo;
+        props.onSearch(data);
+        setIsEmptyArray(data.length === 0);
+        setIsLoading(false);
       };
       confirm();
     }

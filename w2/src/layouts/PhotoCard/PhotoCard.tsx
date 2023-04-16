@@ -5,7 +5,7 @@ import PhotoData from '../../interfaces/PhotoData';
 import CardModal from '../CardModal/CardModal';
 import FullPhotoCard from '../FullPhotoCard/FullPhotoCard';
 import Loader from '../../assets/loader.svg';
-// import getApi from '../../api/flickr';
+import getApi from '../../api/flickr';
 import PhotoInfo from '../../interfaces/PhotoInfo';
 import Lost from '../../assets/lost.jpg';
 
@@ -28,8 +28,8 @@ const PhotoCard: React.FC<PhotoData> = ({
   async function cardOpenHandler() {
     setIfShowCard(true);
     setIsLoading(true);
-    // const response = await getApi().getPhotoInfo(id);
-    // const photoInfo = response.data.photo as PhotoInfo;
+    const response = await getApi().getPhotoInfo(id);
+    const photoInfo = response.data.photo as PhotoInfo;
     if (photoInfo) setPhotoInfo(photoInfo);
     setIsLoading(false);
   }
