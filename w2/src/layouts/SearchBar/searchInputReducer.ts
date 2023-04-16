@@ -6,7 +6,6 @@ const searchInputSlice = createSlice({
   reducers: {
     save: (state, action) => {
       state = action.payload || '';
-      console.log(state);
       return state;
     },
   },

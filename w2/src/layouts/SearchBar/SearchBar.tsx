@@ -1,55 +1,40 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RxCross2 } from 'react-icons/rx';
 import { TbSearch } from 'react-icons/tb';
 import classes from './SearchBar.module.scss';
-import PhotoData from '../../interfaces/PhotoData';
 import Loader from '../../assets/loader.svg';
 import { BsFillInboxFill } from 'react-icons/bs';
-import getApi from '../../api/flickr';
 import { save } from './searchInputReducer';
-import { setSubmited } from './searchSubmitReducer';
+// import { setSubmited } from './searchSubmitReducer';
+import { fetchSeachSubmit } from './seatchData';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { toggleLoader, removeData } from './seatchData';
 
-type PropsData = {
-  onSearch: ([]: PhotoData[]) => void;
-};
-
-const SearchBar = (props: PropsData) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isEmptyArray, setIsEmptyArray] = useState(true);
+const SearchBar = () => {
   const dispatch = useDispatch();
+  const photodata = useAppSelector((state) => state.apiData.dataArray);
   const searchInput = useSelector((state: { searchInput: string }) => state.searchInput);
-  const searchSubmiter = useSelector((state: { searchSubmit: string }) => state.searchSubmit);
+  const isLoading = useAppSelector((state) => state.apiData.loading);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(save(event.target.value.trim()));
   };
+  const apiDispatch = useAppDispatch();
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!searchInput) return;
-    props.onSearch([]);
-    dispatch(setSubmited(searchInput));
+    // dispatch(setSubmited(searchInput));
+    apiDispatch(removeData());
+    apiDispatch(toggleLoader());
+    await apiDispatch(fetchSeachSubmit(searchInput));
+    apiDispatch(toggleLoader());
   };
-
-  useEffect(() => {
-    if (!searchSubmiter) return;
-    if (searchSubmiter) {
-      const confirm = async () => {
-        setIsLoading(true);
-        setIsEmptyArray(false);
-        const data: PhotoData[] = (await getApi().getPhotoData(searchSubmiter)).data.photos.photo;
-        props.onSearch(data);
-        setIsEmptyArray(data.length === 0);
-        setIsLoading(false);
-      };
-      confirm();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchSubmiter]);
 
   const handleReset = () => {
     dispatch(save(''));
+    apiDispatch(removeData());
   };
 
   return (
@@ -75,7 +60,7 @@ const SearchBar = (props: PropsData) => {
       </form>
       {isLoading && <img className={classes.loader} src={Loader} />}
       {isLoading && <p className={classes.loading}>Loading</p>}
-      {isEmptyArray && (
+      {photodata.length === 0 && !isLoading && (
         <>
           <BsFillInboxFill className={classes.emptyIcon} />
           <p className={classes.emptyText}>List is empty</p>

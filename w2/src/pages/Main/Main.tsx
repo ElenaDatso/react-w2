@@ -4,20 +4,17 @@ import classes from './Main.module.scss';
 import { useState } from 'react';
 import PhotoCard from '../../layouts/PhotoCard/PhotoCard';
 import PhotoData from '../../interfaces/PhotoData';
+import { useAppSelector } from '../../hooks';
 
 function Main() {
-  const [cards, setCards] = useState<PhotoData[]>([]);
-
-  function searchHandler(array: PhotoData[]) {
-    setCards(array);
-  }
+  const dataCards = useAppSelector((state) => state.apiData.dataArray);
 
   return (
     <div>
-      <SearchBar onSearch={searchHandler}></SearchBar>
+      <SearchBar></SearchBar>
       <div className={classes.cardsWrap}>
-        {cards.length > 0 &&
-          cards.map((card) => (
+        {dataCards.length > 0 &&
+          dataCards.map((card) => (
             <PhotoCard
               key={card.id}
               title={card.title}
