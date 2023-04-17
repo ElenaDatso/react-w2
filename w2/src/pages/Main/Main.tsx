@@ -1,9 +1,7 @@
 import React from 'react';
 import SearchBar from '../../layouts/SearchBar/SearchBar';
 import classes from './Main.module.scss';
-import { useState } from 'react';
 import PhotoCard from '../../layouts/PhotoCard/PhotoCard';
-import PhotoData from '../../interfaces/PhotoData';
 import { useAppSelector } from '../../hooks';
 
 function Main() {
