@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/routing/Router.tsx</title>
+    <title>Code coverage report for src/api/flickr.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/routing</a> Router.tsx</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/api</a> flickr.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -81,42 +81,48 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
-import RootLayout from '../layouts/RootLayout/RootLayout';
-import { NotFound, Main, AboutUs, Form } from '../pages';
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios from 'axios';
+import PhotoData from '../interfaces/PhotoData';
+import PhotoInfo from '../interfaces/PhotoInfo';
 &nbsp;
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: &lt;RootLayout /&gt;,
-    children: [
-      { path: '/', element: &lt;Main /&gt;, errorElement: &lt;NotFound /&gt; },
-      { path: 'about', element: &lt;AboutUs /&gt; },
-      { path: 'form', element: &lt;Form /&gt; },
-    ],
-  },
-]);
-&nbsp;
-export default router;
+export default function () {
+  const API_KEY = 'ad3ad555dd3292925321ec36efca1184';
+  const BASE_URL = 'https://api.flickr.com/services/rest/';
+  return {
+    getPhotoData(searchValue: string) {
+      return axios.get&lt;{ photos: { photo: PhotoData[] } }&gt;(
+        `${BASE_URL}?method=flickr.photos.search&amp;api_key=${API_KEY}&amp;text=${searchValue}&amp;format=json&amp;nojsoncallback=1`
+      );
+    },
+    getPhotoInfo(photoId: string) {
+      return axios.get&lt;{ photo: PhotoInfo }&gt;(
+        `${BASE_URL}?method=flickr.photos.getInfo&amp;api_key=${API_KEY}&amp;photo_id=${photoId}&amp;format=json&amp;nojsoncallback=1`
+      );
+    },
+  };
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->

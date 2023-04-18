@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/layouts/SearchBar/SearchBar.tsx</title>
+    <title>Code coverage report for src/layouts/FullPhotoCard/FullPhotoCard.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/layouts/SearchBar</a> SearchBar.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/layouts/FullPhotoCard</a> FullPhotoCard.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.91% </span>
+                <span class="strong">16.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/73</span>
+                <span class='fraction'>10/59</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">21.91% </span>
+                <span class="strong">16.94% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/73</span>
+                <span class='fraction'>10/59</span>
             </div>
         
             
@@ -122,27 +122,7 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -199,89 +179,67 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RxCross2 } from 'react-icons/rx';
-import { TbSearch } from 'react-icons/tb';
-import classes from './SearchBar.module.scss';
-import Loader from '../../assets/loader.svg';
-import { BsFillInboxFill } from 'react-icons/bs';
-import { save } from './searchInputReducer';
-// import { setSubmited } from './searchSubmitReducer';
-import { fetchSeachSubmit } from './seatchData';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { toggleLoader, removeData } from './seatchData';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react';
+import classes from './FullPhotoCard.module.scss';
+import PhotoData from '../../interfaces/PhotoData';
+import Tag from '../Tag/Tag';
+import { MdPerson2 } from 'react-icons/md';
+import Lost from '../../assets/lost.jpg';
 &nbsp;
-const SearchBar = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  const dispatch = useDispatch();</span>
-<span class="cstat-no" title="statement not covered" >  const photodata = useAppSelector((state) =&gt; state.apiData.dataArray);</span>
-<span class="cstat-no" title="statement not covered" >  const searchInput = useSelector((state: { searchInput: string }) =&gt; state.searchInput);</span>
-<span class="cstat-no" title="statement not covered" >  const isLoading = useAppSelector((state) =&gt; state.apiData.loading);</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const handleInputChange = (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatch(save(event.target.value.trim()));</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" >  const apiDispatch = useAppDispatch();</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const handleSearch = async (event: React.FormEvent&lt;HTMLFormElement&gt;) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >    if (!searchInput) return;</span>
-<span class="cstat-no" title="statement not covered" >    // dispatch(setSubmited(searchInput));</span>
-<span class="cstat-no" title="statement not covered" >    apiDispatch(removeData());</span>
-<span class="cstat-no" title="statement not covered" >    apiDispatch(toggleLoader());</span>
-<span class="cstat-no" title="statement not covered" >    await apiDispatch(fetchSeachSubmit(searchInput));</span>
-<span class="cstat-no" title="statement not covered" >    apiDispatch(toggleLoader());</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >  const handleReset = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    dispatch(save(''));</span>
-<span class="cstat-no" title="statement not covered" >    apiDispatch(removeData());</span>
-<span class="cstat-no" title="statement not covered" >  };</span>
-<span class="cstat-no" title="statement not covered" ></span>
+const FullPhotoCard: React.FC&lt;PhotoData&gt; = <span class="fstat-no" title="function not covered" >({ title, id, secret, server, info }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >  const dateCreated = info ? new Date(+info.dates.posted * 1000).toLocaleString() : 'unknown';</span>
+<span class="cstat-no" title="statement not covered" >  const dateUpdated = info ? new Date(+info.dates.lastupdate * 1000).toLocaleString() : 'unknown';</span>
+<span class="cstat-no" title="statement not covered" >  const [isLost, setIsLost] = useState(false);</span>
+<span class="cstat-no" title="statement not covered" >  fetch(`https://live.staticflickr.com/${server}/${id}_${secret}.jpg`)</span>
+<span class="cstat-no" title="statement not covered" >    .then((data) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      if (data.status === 500) {</span>
+<span class="cstat-no" title="statement not covered" >        setIsLost(true);</span>
+<span class="cstat-no" title="statement not covered" >        throw Error;</span>
+<span class="cstat-no" title="statement not covered" >      }</span>
+<span class="cstat-no" title="statement not covered" >    })</span>
+<span class="cstat-no" title="statement not covered" >    .catch(() =&gt; Error);</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;form onSubmit={handleSearch}&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;div className={classes.wrap}&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;input</span>
-<span class="cstat-no" title="statement not covered" >            type="text"</span>
-<span class="cstat-no" title="statement not covered" >            value={searchInput}</span>
-<span class="cstat-no" title="statement not covered" >            onChange={handleInputChange}</span>
-<span class="cstat-no" title="statement not covered" >            placeholder="Search"</span>
-<span class="cstat-no" title="statement not covered" >            className={classes.input}</span>
-<span class="cstat-no" title="statement not covered" >          /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;button type="submit" className={classes.submit}&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;TbSearch&gt;&lt;/TbSearch&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >          {searchInput.length &gt; 0 &amp;&amp; (</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button type="button" onClick={handleReset} className={classes.cross}&gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;RxCross2 /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >          )}</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/form&gt;</span>
-<span class="cstat-no" title="statement not covered" >      {isLoading &amp;&amp; &lt;img className={classes.loader} src={Loader} /&gt;}</span>
-<span class="cstat-no" title="statement not covered" >      {isLoading &amp;&amp; &lt;p className={classes.loading}&gt;Loading&lt;/p&gt;}</span>
-<span class="cstat-no" title="statement not covered" >      {photodata.length === 0 &amp;&amp; !isLoading &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;div className={classes.cardStyle}&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;img</span>
+<span class="cstat-no" title="statement not covered" >        src={isLost ? Lost : `https://live.staticflickr.com/${server}/${id}_${secret}.jpg`}</span>
+<span class="cstat-no" title="statement not covered" >        alt={title}</span>
+<span class="cstat-no" title="statement not covered" >        className={classes.cover}</span>
+<span class="cstat-no" title="statement not covered" >      /&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;h2 className={classes.h2}&gt;{title}&lt;/h2&gt;</span>
+<span class="cstat-no" title="statement not covered" >      {info &amp;&amp; (</span>
 <span class="cstat-no" title="statement not covered" >        &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;BsFillInboxFill className={classes.emptyIcon} /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;p className={classes.emptyText}&gt;List is empty&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className={classes.basicInfo}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className={classes.basicInfoRow}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;MdPerson2&gt;&lt;/MdPerson2&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p&gt;by {info.owner.realname ? info.owner.realname : info.owner.username}&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className={classes.datesWrap}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;p&gt;created: {dateCreated}&lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >              {info.dates.posted !== info.dates.lastupdate &amp;&amp; &lt;p&gt;last updated: {dateUpdated}&lt;/p&gt;}</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;h6 className={classes.h6}&gt;Description:&lt;/h6&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className={classes.aditionalInfo}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;p className={classes.description}&gt;</span>
+<span class="cstat-no" title="statement not covered" >              {info.description._content</span>
+<span class="cstat-no" title="statement not covered" >                ? info.description._content</span>
+<span class="cstat-no" title="statement not covered" >                : 'No description was added...'}</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/p&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;h6 className={classes.h6}&gt;Tags:&lt;/h6&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;div className={classes.tagsWrap}&gt;</span>
+<span class="cstat-no" title="statement not covered" >            {info.tags.tag.length &gt; 0 &amp;&amp; info.tags.tag.map((tag) =&gt; Tag(tag.raw))}</span>
+<span class="cstat-no" title="statement not covered" >            {info.tags.tag.length === 0 &amp;&amp; &lt;span&gt;No tags&lt;/span&gt;}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >        &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >      )}</span>
-<span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/div&gt;</span>
 <span class="cstat-no" title="statement not covered" >  );</span>
 <span class="cstat-no" title="statement not covered" >};</span>
 &nbsp;
-export default SearchBar;
+export default FullPhotoCard;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
